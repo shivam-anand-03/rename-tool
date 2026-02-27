@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project File Renamer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📁 Project File Renamer</h1>
+            <p>Organize your project images and annotations with consistent naming</p>
+        </header>
+
+        <div class="main-content">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <!-- Project Name Input -->
+                <div class="form-group">
+                    <label for="projectName">
+                        <span class="label-icon">🏷️</span>
+                        Project Name
+                    </label>
+                    <input 
+                        type="text" 
+                        id="projectName" 
+                        name="project_name" 
+                        placeholder="e.g., antigravity" 
+                        required
+                    >
+                    <small>This will be used as the prefix for all renamed files</small>
+                </div>
+
+                <!-- Images Upload -->
+                <div class="form-group">
+                    <label for="images">
+                        <span class="label-icon">🖼️</span>
+                        Upload Images
+                    </label>
+                    <div class="upload-area" id="imageUploadArea">
+                        <input 
+                            type="file" 
+                            id="images" 
+                            name="images" 
+                            multiple 
+                            accept="image/*"
+                            class="file-input"
+                        >
+                        <div class="upload-placeholder">
+                            <span class="upload-icon">📤</span>
+                            <p>Click to select images or drag & drop here</p>
+                            <small>Supports: JPG, PNG, GIF, BMP, TIFF, WebP, SVG</small>
+                        </div>
+                    </div>
+                    <div id="imageList" class="file-list"></div>
+                </div>
+
+                <!-- JSON/Annotations Upload -->
+                <div class="form-group">
+                    <label for="jsons">
+                        <span class="label-icon">📄</span>
+                        Upload Annotations
+                    </label>
+                    <div class="upload-area" id="jsonUploadArea">
+                        <input 
+                            type="file" 
+                            id="jsons" 
+                            name="jsons" 
+                            multiple 
+                            accept=".json,.txt"
+                            class="file-input"
+                        >
+                        <div class="upload-placeholder">
+                            <span class="upload-icon">📤</span>
+                            <p>Click to select annotation files or drag & drop here</p>
+                            <small>Supports: JSON, TXT</small>
+                        </div>
+                    </div>
+                    <div id="jsonList" class="file-list"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="button-group">
+                    <button type="button" id="clearBtn" class="btn btn-danger">
+                        🗑️ Clear All
+                    </button>
+                    <button type="button" id="previewBtn" class="btn btn-secondary">
+                        👁️ Preview Changes
+                    </button>
+                    <button type="submit" id="processBtn" class="btn btn-primary">
+                        ⬇️ Download Renamed Files
+                    </button>
+                </div>
+            </form>
+
+            <!-- Preview Section -->
+            <div id="previewSection" class="preview-section" style="display: none;">
+                <h2>📋 Preview of Renamed Files</h2>
+                
+                <div id="previewImages" class="preview-group">
+                    <h3>Images</h3>
+                    <div class="preview-list" id="previewImagesList"></div>
+                </div>
+                
+                <div id="previewJsons" class="preview-group">
+                    <h3>Annotations</h3>
+                    <div class="preview-list" id="previewJsonsList"></div>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Processing your files...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message" style="display: none;"></div>
+        </div>
+
+        <footer>
+            <p>📦 Upload your images and annotations to get organized project files</p>
+            <p class="info-text">Output format: {project_name}_image_001.jpg, {project_name}_annotation_001.json</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

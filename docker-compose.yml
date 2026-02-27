@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  file-renamer:
+    build: .
+    container_name: project-file-renamer
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./uploads:/tmp/uploads
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
+    networks:
+      - renamer-network
+
+networks:
+  renamer-network:
+    driver: bridge
