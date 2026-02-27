@@ -147,19 +147,25 @@ previewBtn.addEventListener('click', async () => {
             body: formData
         });
         
-        const data = await response.json();
-        
         if (!response.ok) {
-            throw new Error(data.error || 'Preview failed');
+            // Check if response is JSON or HTML
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const data = await response.json();
+                throw new Error(data.error || 'Preview failed');
+            } else {
+                throw new Error(`Server error (${response.status}): ${response.statusText}`);
+            }
         }
         
+        const data = await response.json();
         displayPreview(data);
         loading.style.display = 'none';
         previewSection.style.display = 'block';
         
     } catch (error) {
         loading.style.display = 'none';
-        showError(error.message);
+        showError(error.message || 'An error occurred while previewing');
     }
 });
 
@@ -242,8 +248,16 @@ uploadForm.addEventListener('submit', async (e) => {
         });
         
         if (!response.ok) {
-            const data = await response.json();
-            throw new Error(data.error || 'Processing failed');
+            // Check if response is JSON or HTML
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const data = await response.json();
+                throw new Error(data.error || 'Processing failed');
+            } else {
+                // HTML error page or other format
+                const text = await response.text();
+                throw new Error(`Server error (${response.status}): ${response.statusText}`);
+            }
         }
         
         // Download the file
@@ -264,7 +278,7 @@ uploadForm.addEventListener('submit', async (e) => {
     } catch (error) {
         loading.style.display = 'none';
         processBtn.disabled = false;
-        showError(error.message);
+        showError(error.message || 'An error occurred while processing files');
     }
 });
 

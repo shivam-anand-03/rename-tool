@@ -156,6 +156,15 @@ def process():
         if not images and not jsons:
             return jsonify({'error': 'Please upload at least one file'}), 400
         
+        # Validate files
+        for img in images:
+            if img.filename and not allowed_file(img.filename, ALLOWED_IMAGE_EXTENSIONS):
+                return jsonify({'error': f'Invalid image file: {img.filename}'}), 400
+        
+        for json_file in jsons:
+            if json_file.filename and not allowed_file(json_file.filename, ALLOWED_JSON_EXTENSIONS):
+                return jsonify({'error': f'Invalid annotation file: {json_file.filename}'}), 400
+        
         # Filter out empty files
         images = [img for img in images if img.filename]
         jsons = [j for j in jsons if j.filename]
@@ -175,6 +184,7 @@ def process():
         )
     
     except Exception as e:
+        app.logger.error(f"Error processing files: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 

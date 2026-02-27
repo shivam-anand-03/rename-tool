@@ -25,6 +25,8 @@ Files in `output-jsons/` → `annotation/`
 
 ## 🚀 Quick Start
 
+> **📘 Want to deploy on a VM?** Check out the comprehensive [**VM Deployment Guide**](DEPLOYMENT.md) for production deployment instructions, including Nginx setup, SSL configuration, and more!
+
 ### Option 1: Using Docker Compose (Recommended)
 
 ```bash
