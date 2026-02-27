@@ -31,7 +31,7 @@ Files in `output-jsons/` → `annotation/`
 # Build and run
 docker-compose up -d
 
-# Access the app at http://localhost:5000
+# Access the app at http://localhost:5173
 ```
 
 ### Option 2: Using Docker
@@ -41,9 +41,9 @@ docker-compose up -d
 docker build -t file-renamer .
 
 # Run the container
-docker run -p 5000:5000 file-renamer
+docker run -p 5173:5173 file-renamer
 
-# Access the app at http://localhost:5000
+# Access the app at http://localhost:5173
 ```
 
 ### Option 3: Local Development
@@ -55,7 +55,7 @@ pip install -r requirements.txt
 # Run the application
 python app.py
 
-# Access the app at http://localhost:5000
+# Access the app at http://localhost:5173
 ```
 
 ## 📖 How to Use
@@ -135,7 +135,7 @@ docker-compose down -v
 To change the port, edit `docker-compose.yml`:
 ```yaml
 ports:
-  - "8080:5000"  # Change 8080 to your desired port
+  - "8080:5173"  # Change 8080 to your desired port
 ```
 
 ### Upload Size Limit

@@ -28,8 +28,8 @@ COPY static/ static/
 # Create directory for uploads
 RUN mkdir -p /tmp/uploads
 
-# Expose port 5000
-EXPOSE 5000
+# Expose port 5173
+EXPOSE 5173
 
 # Run the application
 CMD ["python", "app.py"]

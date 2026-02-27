@@ -5,7 +5,7 @@ services:
     build: .
     container_name: project-file-renamer
     ports:
-      - "5000:5000"
+      - "5173:5173"
     volumes:
       - ./uploads:/tmp/uploads
     environment:
